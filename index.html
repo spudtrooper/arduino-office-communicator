@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script type="text/javascript" src="communicator.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <style>
+      body {font-family: arial}
+    </style>
+  </head>
+  <body onload="onLoad()">
+    <p>
+      <img id="main_image"></img> <span id="main_user"></span>
+    </p>
+    <p>
+      <button onclick="changeStatus(Communicator.Status.Online)">Online</button>
+      <button onclick="changeStatus(Communicator.Status.Offline)">Offline</button>
+      <button onclick="changeStatus(Communicator.Status.Away)">Away</button>
+      <button onclick="changeStatus(Communicator.Status.Busy)">Busy</button>
+      <br/>
+      <button onclick="changeStatus(Communicator.Status.BeRightBack)">BeRightBack</button>
+      <button onclick="changeStatus(Communicator.Status.OnThePhone)">OnThePhone</button>
+      <button onclick="changeStatus(Communicator.Status.OutToLunch)">OutToLunch</button>
+      <button onclick="changeStatus(Communicator.Status.DoNotDisturb)">DoNotDisturb</button>
+    </p>
+    <p>
+      Last changed on <em><span id="last_changed"></span></em>
+    </p>
+    <img style="display:none" id="com_img"></img>
+  </body>
+</html>
