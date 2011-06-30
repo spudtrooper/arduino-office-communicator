@@ -69,7 +69,9 @@ function onLoad() {
   if (!!nameCtrl) {
     if (nameCtrl.PresenceEnabled) {
       nameCtrl.OnStatusChange = function(name,status,id) {
-	changeStatus(status);
+	if (name == user) {
+	  changeStatus(status);
+	}
       };
       nameCtrl.GetStatus(user, '1');
     }
