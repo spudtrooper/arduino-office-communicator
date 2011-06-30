@@ -48,7 +48,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         l = re.findall(STATUS_RE,path)
         if len(l) > 0:
             self.send_response(200)
-            serialSend(int(l[0]) + 48)
+            serialSend(int(l[0]))
             return
 
         # Otherwise, just do the file

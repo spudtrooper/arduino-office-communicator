@@ -1,3 +1,8 @@
+/*
+ * Receives status codes (STATUS_*) and sets the LEDs assigned to
+ * the pins (PIN_*) accordingly.
+ */
+ 
 int b = -1;
 int pin = -1;
 
@@ -6,6 +11,7 @@ int pin = -1;
 #define STATUS_BUSY            '1'
 #define STATUS_AWAY            '2'
 #define STATUS_DO_NOT_DISTURB  '3'
+#define STATUS_OFFLINE         '4'
 #define STATUS_CLEAR           '9'
 
 // Pin assignments
@@ -25,7 +31,7 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    b = Serial.read(); // - 48;
+    b = Serial.read();
     if (b >= 0) {
       
       // Clear the pins
@@ -47,6 +53,9 @@ void loop() {
        case STATUS_AWAY:
           pin = PIN_RED;
           break;
+       case STATUS_OFFLINE:
+          pin = PIN_WHITE;
+          break;
        case STATUS_DO_NOT_DISTURB:
           pin = PIN_ALL;
           break;   
@@ -60,6 +69,7 @@ void loop() {
         digitalWrite(PIN_RED, HIGH);
         digitalWrite(PIN_YELLOW, HIGH);
         digitalWrite(PIN_GREEN, HIGH);
+        digitalWrite(PIN_WHITE, HIGH);
       } else if (pin != PIN_NONE) {
         Serial.print("Setting pin: ");
         Serial.println(pin, DEC);

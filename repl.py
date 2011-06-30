@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #
-# Sends what you type to the serial port.
+# Sends what you type to the serial port.  For testing.
+#
 
 import sys
 import re

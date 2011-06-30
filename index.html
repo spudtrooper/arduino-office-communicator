@@ -8,18 +8,28 @@
   </head>
   <body onload="onLoad()">
     <p>
-      <img id="main_image"></img> <span id="main_user"></span>
+      <img id="main_image"></img> 
+      <input id="main_user" value="jpalm@audible.com"></input>
     </p>
     <p>
-      <button onclick="changeStatus(Communicator.Status.Online)">Online</button>
-      <button onclick="changeStatus(Communicator.Status.Offline)">Offline</button>
-      <button onclick="changeStatus(Communicator.Status.Away)">Away</button>
-      <button onclick="changeStatus(Communicator.Status.Busy)">Busy</button>
-      <br/>
-      <button onclick="changeStatus(Communicator.Status.BeRightBack)">BeRightBack</button>
-      <button onclick="changeStatus(Communicator.Status.OnThePhone)">OnThePhone</button>
-      <button onclick="changeStatus(Communicator.Status.OutToLunch)">OutToLunch</button>
-      <button onclick="changeStatus(Communicator.Status.DoNotDisturb)">DoNotDisturb</button>
+      <button onclick="changeStatus(Communicator.Status.Online)">
+	<img src="images/Online.png" /> Online
+      </button>
+      <button onclick="changeStatus(Communicator.Status.Offline)">
+	<img src="images/Offline.png" /> Offline
+      </button>
+      <button onclick="changeStatus(Communicator.Status.Away)">
+	<img src="images/Away.png" /> Away
+      </button>
+      <button onclick="changeStatus(Communicator.Status.Busy)">
+	<img src="images/Busy.png" /> Busy
+      </button>
+      <button onclick="changeStatus(Communicator.Status.BeRightBack)">
+	<img src="images/BeRightBack.png" /> BeRightBack
+      </button>
+      <button onclick="changeStatus(Communicator.Status.DoNotDisturb)">
+	<img src="images/DoNotDisturb.png" /> DoNotDisturb
+      </button>
     </p>
     <p>
       Last changed on <em><span id="last_changed"></span></em>

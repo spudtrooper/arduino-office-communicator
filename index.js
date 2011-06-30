@@ -1,5 +1,3 @@
-var user = 'jpalm@audible.com';
-var port = 8123;
 
 /**
  * Returns the code sent to the serial port.
@@ -15,9 +13,10 @@ function getStatusCode(status) {
   case Communicator.Status.OutToLunch:
     return 2;
   case Communicator.Status.OnThePhone:
-  case Communicator.Status.Offline:
   case Communicator.Status.DoNotDisturb:
     return 3;
+  case Communicator.Status.Offline:
+    return 4;
   }
   return 4;
 }
@@ -25,9 +24,9 @@ function getStatusCode(status) {
 function getStatusImage(status) {
   switch (parseInt(status)) {
   case Communicator.Status.Online:
-    return 'images/Available.png';
+    return 'images/Online.png';
   case Communicator.Status.Offline:
-    return 'images/NotAvailable.png';
+    return 'images/Offline.png';
   case Communicator.Status.Busy:
     return 'images/Busy.png';
   case Communicator.Status.BeRightBack:
@@ -66,6 +65,7 @@ function changeStatus(status) {
 }
 
 function onLoad() {
+  var user = document.getElementById('main_user').value;
   if (!!nameCtrl) {
     if (nameCtrl.PresenceEnabled) {
       nameCtrl.OnStatusChange = function(name,status,id) {
