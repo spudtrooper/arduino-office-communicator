@@ -41,9 +41,13 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         global serialPort
         path = self.path
-        if path == '/':
-            path = '/index.html'
+        just_path = re.sub(r'\?.*','',path)
+        if just_path == '/':
+            path = re.sub(r'^\/','/index.html',just_path)
+            just_path = path
 
+        print path
+        
         # Try to respond to a status update
         l = re.findall(STATUS_RE,path)
         if len(l) > 0:

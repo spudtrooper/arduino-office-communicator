@@ -36,5 +36,5 @@ def findSerialPort():
     if os.name == 'windows':
         return 'COM5'
     if os.name == 'posix':
-        for port in glob.glob('/dev/tty*usb*') + glob.glob('/dev/ttyUSB*'):
+        for port in glob.glob('/dev/tty*usb*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'):
             return port

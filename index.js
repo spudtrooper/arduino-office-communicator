@@ -6,12 +6,12 @@ function getStatusCode(status) {
   switch (parseInt(status)) {
   case Communicator.Status.Online:
     return 0;
-  case Communicator.Status.BeRightBack:
   case Communicator.Status.Busy:
-    return 1;
+    return 2;
+  case Communicator.Status.BeRightBack:
   case Communicator.Status.Away:
   case Communicator.Status.OutToLunch:
-    return 2;
+    return 1;
   case Communicator.Status.OnThePhone:
   case Communicator.Status.DoNotDisturb:
     return 3;
@@ -65,6 +65,14 @@ function changeStatus(status) {
 }
 
 function onLoad() {
+  //
+  // Grab the user from the url
+  //
+  var loc = String(document.location);
+  var match = /main_user=(.*)/.exec(loc);
+  if (match) {
+    document.getElementById('main_user').value = match[1];
+  }
   var user = document.getElementById('main_user').value;
   if (!!nameCtrl) {
     if (nameCtrl.PresenceEnabled) {
