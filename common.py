@@ -27,7 +27,10 @@ def serialSend(n):
     global serialPort
     c = chr(int(n) + 48)
     print 'Sending serial %d - %r' % (n,c)
-    serialPort.write(c)
+    try:
+        serialPort.write(c)
+    except:
+        print "Could not send %d" % n
 
 def findSerialPort():
     """
@@ -36,5 +39,5 @@ def findSerialPort():
     if os.name == 'windows':
         return 'COM5'
     if os.name == 'posix':
-        for port in glob.glob('/dev/tty*usb*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'):
+        for port in glob.glob('/dev/tty*usb*') + glob.glob('/dev/*usb*') + glob.glob('/dev/ttyUSB*') + glob.glob('/dev/ttyACM*'):
             return port

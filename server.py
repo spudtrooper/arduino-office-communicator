@@ -18,12 +18,18 @@ import time
 import sys
 import re
 import os
+from urlparse import urlparse
 
 from common import *
 
 # Routing regular expressions
-STATUS_RE = re.compile('^\/StatusUpdate.*status=(\d+)')
+STATUS_RE = re.compile('^\/StatusUpdate.*status=(\d+).*')
 VALIDFILE_RE = re.compile('^\/index.html|^\/|\/.*\..js|\/.*\..png$')
+
+def parse_url_args(url):
+    p = urlparse(url)
+    lst = [part.split('=') for part in p[4].split('&')]
+    return {it[0]: it[1] for it in lst}
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
@@ -39,21 +45,26 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             return 'image/png'
 
     def do_GET(self):
-        global serialPort
         path = self.path
         just_path = re.sub(r'\?.*','',path)
         if just_path == '/':
             path = re.sub(r'^\/','/index.html',just_path)
             just_path = path
-
-        print path
         
         # Try to respond to a status update
-        l = re.findall(STATUS_RE,path)
-        if len(l) > 0:
-            self.send_response(200)
-            serialSend(int(l[0]))
-            return
+        if re.match(STATUS_RE,path):
+            args = parse_url_args(path)
+            status = args.get('status')
+            num = args.get('num')
+            if status != None and num != None:
+                self.send_response(200)
+                serialSend(int(num))
+                serialSend(int(status))
+                return
+            elif status != None:
+                self.send_response(200)
+                serialSend(int(status))
+                return
 
         # Otherwise, just do the file
         if re.match(VALIDFILE_RE,path):
@@ -73,8 +84,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_response(404)
 
 def main(argv):
-
-    global serialPort
 
     # ALlow the user to pass in a port
     httpPort = 8123
